@@ -142,7 +142,7 @@ public class WavRecorderActivity extends AppCompatActivity {
   }
 
   private void animateVoice(final float maxPeak) {
-    recordButton.animate().scaleX(1 + maxPeak).scaleY(1 + maxPeak).setDuration(10).start();
+    // recordButton.animate().scaleX(1 + maxPeak).scaleY(1 + maxPeak).setDuration(10).start();
   }
 
   private PullableSource mic() {
