@@ -116,9 +116,9 @@ public class WavRecorderActivity extends AppCompatActivity {
     recorder = OmRecorder.wav(
         new PullTransport.Default(mic(), new PullTransport.OnAudioChunkPulledListener() {
           @Override public void onAudioChunkPulled(AudioChunk audioChunk) {
-            animateVoice((float) (audioChunk.maxAmplitude() / 200.0));
+            // animateVoice((float) (audioChunk.maxAmplitude() / 200.0));
           }
-        }), file());
+        }), new File(getExternalCacheDir(), "bacti.wav"));
   }
 
   private void setupNoiseRecorder() {
