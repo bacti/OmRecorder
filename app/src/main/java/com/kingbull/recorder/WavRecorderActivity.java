@@ -155,6 +155,6 @@ public class WavRecorderActivity extends AppCompatActivity {
   }
 
   @NonNull private File file() {
-    return new File(Environment.getExternalStorageDirectory(), "kailashdabhi.wav");
+    return new File(getExternalCacheDir(), "bacti.wav");
   }
 }
