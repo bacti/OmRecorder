@@ -78,36 +78,6 @@ public class WavRecorderActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 skipSilence.setEnabled(true);
-                // recordButton.post(new Runnable() {
-                //     @Override public void run() {
-                //         animateVoice(0);
-                //     }
-                // });
-            }
-        });
-        pauseResumeButton = (Button) findViewById(R.id.pauseResumeButton);
-        pauseResumeButton.setOnClickListener(new View.OnClickListener() {
-            boolean isPaused = false;
-
-            @Override public void onClick(View view) {
-                if (recorder == null) {
-                    Toast.makeText(WavRecorderActivity.this, "Please start recording first!",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (!isPaused) {
-                    pauseResumeButton.setText(getString(R.string.resume_recording));
-                    recorder.pauseRecording();
-                    pauseResumeButton.postDelayed(new Runnable() {
-                        @Override public void run() {
-                            animateVoice(0);
-                        }
-                    }, 100);
-                } else {
-                    pauseResumeButton.setText(getString(R.string.pause_recording));
-                    recorder.resumeRecording();
-                }
-                isPaused = !isPaused;
             }
         });
     }
@@ -128,23 +98,35 @@ public class WavRecorderActivity extends AppCompatActivity {
         );
     }
 
-    private void setupNoiseRecorder() {
-        recorder = OmRecorder.wav(
-                new PullTransport.Noise(mic(),
-                        new PullTransport.OnAudioChunkPulledListener() {
-                            @Override public void onAudioChunkPulled(AudioChunk audioChunk) {
-                                animateVoice((float) (audioChunk.maxAmplitude() / 200.0));
-                            }
-                        },
-                        new WriteAction.Default(),
-                        new Recorder.OnSilenceListener() {
-                            @Override public void onSilence(long silenceTime) {
-                                Log.e("silenceTime", String.valueOf(silenceTime));
-                                Toast.makeText(WavRecorderActivity.this, "silence of " + silenceTime + " detected",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }, 200
-                ), file()
+    private void setupNoiseRecorder()
+    {
+        recorder = OmRecorder.wav
+        (
+            new PullTransport.Noise
+            (
+                mic(),
+                new PullTransport.OnAudioChunkPulledListener()
+                {
+                    @Override public void onAudioChunkPulled(AudioChunk audioChunk)
+                    {
+                    }
+                },
+                new WriteAction.Default(),
+                new Recorder.OnSilenceListener()
+                {
+                    @Override public void onSilence(long silenceTime)
+                    {
+                        Log.e("silenceTime", String.valueOf(silenceTime));
+                        Toast.makeText
+                        (
+                            WavRecorderActivity.this, "silence of " + silenceTime + " detected",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show();
+                    }
+                }, 200
+            ),
+            new File(getExternalCacheDir(), "bacti.wav")
         );
     }
 
